@@ -1,3 +1,4 @@
+from django.http.response import HttpResponse
 from django.shortcuts import render
 from rest_framework import serializers
 
@@ -40,6 +41,7 @@ def create(request):
 
     return Response(serializer.data)
 
+@api_view(['POST'])
 def update(request, pk):
     task=Tasks.objects.get(id=pk)
     serializer=TasksSerializer(instance=task, data=request.data)
@@ -48,5 +50,9 @@ def update(request, pk):
 
     return Response(serializer.data)
 
-def delete(request):
-    pass
+@api_view(['DELETE'])
+def delete(request, pk):
+    task=Tasks.objects.get(id=pk)
+    task.delete()
+
+    return HttpResponse('data selection deleted')
