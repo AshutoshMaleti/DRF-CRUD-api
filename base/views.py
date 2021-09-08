@@ -31,6 +31,7 @@ def detailedView(request, pk):
     serializer=TasksSerializer(tasks,many=False)
     return Response(serializer.data)
 
+#create a new entry
 @api_view(['POST'])
 def create(request):
     serializer=TasksSerializer(data=request.data)
@@ -39,6 +40,7 @@ def create(request):
 
     return Response(serializer.data)
 
+#update a pre written entry
 @api_view(['POST'])
 def update(request, pk):
     task=Tasks.objects.get(id=pk)
